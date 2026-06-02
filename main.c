@@ -9,9 +9,18 @@ void initializeScreen(char screen[HEIGHT][WIDTH]){
             screen[y][x] = '.';
         }
     }
-    screen[0][0] = 'A';
-    screen[17][25] = 'B';
-    screen[34][49] = 'C';
+}
+
+void drawHorizontalLine(char screen[HEIGHT][WIDTH], int y, int x1, int x2) {
+    for (int x = x1; x <= x2; x++) {
+        screen[y][x] = '_';
+    }
+}
+
+void drawVerticalLine(char screen[HEIGHT][WIDTH], int x, int y1, int y2) {
+    for (int y = y1; y <= y2; y++) {
+        screen[y][x] = '|';
+    }
 }
 
 void displayScreen(char screen[HEIGHT][WIDTH]){
@@ -27,9 +36,13 @@ int main() {
     char screen[HEIGHT][WIDTH];
 
     initializeScreen(screen);
+
+    drawHorizontalLine(screen, 5, 10, 40);
+    drawVerticalLine(screen, 25, 10, 30);
+
     displayScreen(screen);
 
-    printf("screen initialized and displayed successfully.\n");
+    printf("Canvas rendered successfully.\n");
     
     return 0;
 }
