@@ -119,6 +119,71 @@ Explained that drawing horizontal lines last causes the corner coordinates to be
 ### Action Taken
 Tested both rendering orders and chose to draw vertical borders first and horizontal borders last because the top and bottom borders appeared visually cleaner in the terminal output.
 
+---
+
+## 2026-06-04
+
+### Goal
+Design and implement a general drawLine() function using the DDA algorithm.
+
+### Prompt
+"I have completed:
+
+* initializeScreen()
+* displayScreen()
+* drawHorizontalLine()
+* drawVerticalLine()
+* drawRectangle()
+
+I now realize that the assignment requires a general line-drawing capability, not just horizontal and vertical lines.
+
+Before implementing drawTriangle(), I want to design and implement a general drawLine() function that can draw lines between any two points on my character canvas.
+
+Current canvas details:
+
+* WIDTH = 50
+* HEIGHT = 35
+* Coordinates are stored as screen[y][x]
+* The canvas is a 2D character array
+
+Please help me think through the implementation.
+
+Focus on:
+
+1. The coordinate reasoning behind drawing a line between arbitrary points.
+2. How DDA would work step-by-step on a character grid.
+3. Why DDA may be a good choice for a beginner project compared to Bresenham's algorithm.
+4. How drawLine() could later be reused by drawTriangle() and other shapes.
+
+Do not generate the final complete code immediately.
+
+Instead:
+
+* Explain the algorithm.
+* Break implementation into small steps.
+* Suggest simple tests I can run after each step.
+* Help me understand the design decisions before coding."
+
+### Response Summary
+Antigravity explained the DDA line-drawing algorithm, including dx, dy, steps, x_inc, and y_inc calculations. It demonstrated coordinate generation for a sample line and recommended implementing the algorithm incrementally with debugging and testing at each stage. It also explained how drawLine() could later be reused for triangles and other polygonal shapes.
+
+### Action Taken
+Implemented DDA setup and tested the calculations using the line from (0,0) to (4,2). Verified:
+* dx = 4
+* dy = 2
+* steps = 4
+* x_inc = 1.0
+* y_inc = 0.5
+
+Generated and verified the coordinate sequence:
+(0,0)
+(1,1)
+(2,1)
+(3,2)
+(4,2)
+
+Replaced coordinate debugging output with pixel plotting and successfully rendered the line on the canvas using '*' characters.
+
 # Project Progress
 
 * [x] Canvas initialization
@@ -126,6 +191,7 @@ Tested both rendering orders and chose to draw vertical borders first and horizo
 * [x] Horizontal line
 * [x] Vertical line
 * [x] Rectangle
+* [x] Line
 * [ ] Triangle
 * [ ] Circle
 * [ ] Add object
