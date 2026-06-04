@@ -73,6 +73,16 @@ void drawLine(char screen[HEIGHT][WIDTH],
     }
 }
 
+void drawTriangle(char screen[HEIGHT][WIDTH],
+                  int x1, int y1,
+                  int x2, int y2,
+                  int x3, int y3)
+{
+    drawLine(screen, x1, y1, x2, y2);
+    drawLine(screen, x2, y2, x3, y3);
+    drawLine(screen, x3, y3, x1, y1);
+}
+
 void displayScreen(char screen[HEIGHT][WIDTH]){
     for (int y = 0; y < HEIGHT; y++) {
         for (int x = 0; x < WIDTH; x++) {
@@ -87,9 +97,11 @@ int main() {
 
     initializeScreen(screen);
 
-    drawRectangle(screen, 10, 5, 16, 11);
-
-    drawLine(screen, 0, 0, 20, 10);
+    // Triangle test: arbitrary acute triangle
+    drawTriangle(screen,
+             25, 5,
+             10, 25,
+             40, 20);
     
     displayScreen(screen);
 

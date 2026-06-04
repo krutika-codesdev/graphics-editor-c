@@ -184,6 +184,64 @@ Generated and verified the coordinate sequence:
 
 Replaced coordinate debugging output with pixel plotting and successfully rendered the line on the canvas using '*' characters.
 
+---
+
+## 2026-06-04
+
+### Goal
+Design and implement drawTriangle() using the existing DDA-based drawLine() function.
+
+### Prompt
+"I have completed:
+
+* initializeScreen()
+* displayScreen()
+* drawHorizontalLine()
+* drawVerticalLine()
+* drawRectangle()
+* drawLine() using the DDA algorithm
+
+I want to implement drawTriangle() next.
+
+Since I already have a general drawLine() function, explain how to represent a triangle using three vertices and how drawTriangle() can reuse drawLine().
+
+Focus on geometry, coordinate representation, testing strategy, and function design before generating code."
+
+### Response Summary
+Antigravity explained that a triangle can be represented by three vertices:
+P1(x1, y1), P2(x2, y2), and P3(x3, y3).
+
+It recommended implementing drawTriangle() by reusing drawLine() three times:
+* P1 to P2
+* P2 to P3
+* P3 to P1
+
+It also suggested three testing scenarios:
+* Axis-aligned right triangle
+* Arbitrary acute triangle
+* Boundary clipping test
+
+### Action Taken
+Implemented drawTriangle() using three drawLine() calls.
+
+Tested using two configurations:
+
+1. Axis-aligned right triangle
+   P1(10,10)
+   P2(25,10)
+   P3(10,25)
+
+2. Arbitrary acute triangle
+   P1(25,5)
+   P2(10,25)
+   P3(40,20)
+
+Verified:
+- Horizontal, vertical, and diagonal edges render correctly.
+- Vertices connect cleanly.
+- Arbitrary slopes render without visible gaps.
+
+
 # Project Progress
 
 * [x] Canvas initialization
@@ -192,7 +250,7 @@ Replaced coordinate debugging output with pixel plotting and successfully render
 * [x] Vertical line
 * [x] Rectangle
 * [x] Line
-* [ ] Triangle
+* [x] Triangle
 * [ ] Circle
 * [ ] Add object
 * [ ] Delete object
