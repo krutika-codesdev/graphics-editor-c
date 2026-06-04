@@ -23,6 +23,19 @@ void drawVerticalLine(char screen[HEIGHT][WIDTH], int x, int y1, int y2) {
     }
 }
 
+void drawRectangle(char screen[HEIGHT][WIDTH], int x, int y, int width, int height) {
+    int x2 = x + width - 1;
+    int y2 = y + height - 1;
+
+    // Draw left and right vertical borders
+    drawVerticalLine(screen, x, y, y2);
+    drawVerticalLine(screen, x2, y, y2);
+
+    // Draw top and bottom horizontal borders
+    drawHorizontalLine(screen, y, x, x2);
+    drawHorizontalLine(screen, y2, x, x2);
+}
+
 void displayScreen(char screen[HEIGHT][WIDTH]){
     for (int y = 0; y < HEIGHT; y++) {
         for (int x = 0; x < WIDTH; x++) {
@@ -37,12 +50,11 @@ int main() {
 
     initializeScreen(screen);
 
-    drawHorizontalLine(screen, 5, 10, 40);
-    drawVerticalLine(screen, 25, 10, 30);
+    drawRectangle(screen, 10, 5, 16, 11);
 
     displayScreen(screen);
 
-    printf("Canvas rendered successfully.\n");
+    printf("Rectangle rendered successfully.\n");
     
     return 0;
 }
