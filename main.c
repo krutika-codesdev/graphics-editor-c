@@ -83,6 +83,36 @@ void drawTriangle(char screen[HEIGHT][WIDTH],
     drawLine(screen, x3, y3, x1, y1);
 }
 
+void plotCirclePoints(char screen[HEIGHT][WIDTH], int xc, int yc, int x, int y) {
+    int px[8] = { xc + x, xc - x, xc + x, xc - x, xc + y, xc - y, xc + y, xc - y };
+    int py[8] = { yc + y, yc + y, yc - y, yc - y, yc + x, yc + x, yc - x, yc - x };
+
+    for (int i = 0; i < 8; i++) {
+        if (px[i] >= 0 && px[i] < WIDTH && py[i] >= 0 && py[i] < HEIGHT) {
+            screen[py[i]][px[i]] = '*';
+        }
+    }
+}
+
+void drawCircle(char screen[HEIGHT][WIDTH], int xc, int yc, int r) {
+    int x = 0;
+    int y = r;
+    int d = 3 - 2 * r;
+
+    plotCirclePoints(screen, xc, yc, x, y);
+
+    while (x < y) {
+        x++;
+        if (d < 0) {
+            d = d + 4 * x + 6;
+        } else {
+            y--;
+            d = d + 4 * (x - y) + 10;
+        }
+        plotCirclePoints(screen, xc, yc, x, y);
+    }
+}
+
 void displayScreen(char screen[HEIGHT][WIDTH]){
     for (int y = 0; y < HEIGHT; y++) {
         for (int x = 0; x < WIDTH; x++) {
@@ -97,12 +127,8 @@ int main() {
 
     initializeScreen(screen);
 
-    // Triangle test: arbitrary acute triangle
-    drawTriangle(screen,
-             25, 5,
-             10, 25,
-             40, 20);
-    
+    drawCircle(screen, 25, 17, 10);
+
     displayScreen(screen);
 
     printf("Canvas rendered successfully.\n");

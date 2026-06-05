@@ -241,6 +241,119 @@ Verified:
 - Vertices connect cleanly.
 - Arbitrary slopes render without visible gaps.
 
+---
+
+## 2026-06-05
+
+### Goal
+Design and test the plotCirclePoints() helper function using 8-way circle symmetry.
+
+### Prompt
+"I have completed:
+
+* initializeScreen()
+* displayScreen()
+* drawHorizontalLine()
+* drawVerticalLine()
+* drawRectangle()
+* drawLine()
+* drawTriangle()
+
+I want to begin implementing drawCircle() using the Midpoint Circle Algorithm.
+
+Before implementing the full algorithm, help me design and test a helper function that plots the 8 symmetric circle points generated from a single calculated point.
+
+Requirements:
+
+* Use screen[HEIGHT][WIDTH]
+* Include boundary checking
+* Explain the 8-way symmetry mapping
+* Focus only on the helper function and testing strategy"
+
+### Response Summary
+Antigravity explained 8-way circle symmetry and showed how a single calculated point (x, y) relative to the center generates 8 symmetric points around the circle. It recommended implementing a helper function named plotCirclePoints() with boundary validation for every plotted coordinate.
+
+### Action Taken
+Implemented plotCirclePoints().
+
+Tested using:
+* Center: (25,17)
+* Offset: (15,8)
+
+Verified:
+* All 8 symmetric points rendered correctly.
+* Points appeared in matching symmetric pairs.
+* Boundary checking functioned correctly.
+* Coordinate mapping matched the expected circle symmetry.
+
+---
+
+## 2026-06-05
+
+### Goal
+Design and implement drawCircle() using the Midpoint Circle Algorithm and the plotCirclePoints() helper function.
+
+### Prompt
+"I have completed and tested:
+
+* initializeScreen()
+* displayScreen()
+* drawHorizontalLine()
+* drawVerticalLine()
+* drawRectangle()
+* drawLine() using DDA
+* drawTriangle()
+* plotCirclePoints() using 8-way symmetry
+
+The helper function has been verified with the test case:
+
+* Center: (25,17)
+* Offset: (15,8)
+
+and the expected 8 symmetric points rendered correctly.
+
+I now want to implement drawCircle() using the Midpoint Circle Algorithm.
+
+Please help me implement this incrementally.
+
+Requirements:
+
+1. Use my existing plotCirclePoints() helper function.
+2. Explain how the decision variable d changes during execution.
+3. Show the loop structure and update rules for x, y, and d.
+4. Explain where plotCirclePoints() should be called.
+5. Include boundary-safe behavior through the existing helper.
+6. Suggest a minimal implementation first before any refactoring.
+
+After explaining the algorithm, help me modify main.c and run the following tests:
+
+Test 1:
+* Center (25,17)
+* Radius 10
+
+Expected:
+* Complete circle outline centered on the canvas.
+
+Test 2:
+* Center (0,17)
+* Radius 10
+
+Expected:
+* Properly clipped half-circle at the left edge with no out-of-bounds errors.
+
+Once testing is complete, provide a summary suitable for appending to prompts.md using the existing Goal / Prompt / Response Summary / Action Taken format."
+
+### Response Summary
+Antigravity explained the decision variable $d = 3 - 2r$ used to determine the closest pixel (East or Southeast) in the Midpoint Circle Algorithm, along with the loop update rules for $x$, $y$, and $d$. It instructed on calling `plotCirclePoints()` before the loop and inside the loop after updates.
+
+### Action Taken
+Implemented drawCircle() using the Midpoint Circle Algorithm in main.c.
+
+Tested using:
+* Test 1: Center (25,17), Radius 10 (Resulted in centered circle outline)
+* Test 2: Center (0,17), Radius 10 (Resulted in a cleanly clipped half-circle at the left border)
+
+Verified that both tests passed successfully and `plotCirclePoints()` successfully handled clipping boundaries without error.
 
 # Project Progress
 
@@ -251,7 +364,7 @@ Verified:
 * [x] Rectangle
 * [x] Line
 * [x] Triangle
-* [ ] Circle
+* [x] Circle
 * [ ] Add object
 * [ ] Delete object
 * [ ] Modify object
