@@ -355,6 +355,157 @@ Tested using:
 
 Verified that both tests passed successfully and `plotCirclePoints()` successfully handled clipping boundaries without error.
 
+---
+
+## 2026-06-09
+
+### Goal
+Design and implement the basic shape management layer (Shape struct, scene array, addShape, deleteShape, modifyShape, renderScene) with static verification in main.
+
+### Prompt
+"I have completed and tested:
+
+* drawLine()
+* drawRectangle()
+* drawTriangle()
+* drawCircle()
+
+I now need to satisfy the remaining assignment requirements:
+
+* add objects
+* delete objects
+* modify objects
+
+I want to use a simple Shape struct with:
+
+* id
+* type
+* x1,y1
+* x2,y2
+* x3,y3
+* active
+
+and a fixed-size array:
+
+Shape scene[MAX_SHAPES];
+
+Before implementing the menu, help me implement and test only:
+
+1. Shape struct definition
+2. Global scene array
+3. addShape()
+4. deleteShape()
+5. modifyShape()
+6. renderScene()
+
+Use my existing drawing functions without changing them.
+
+Please explain the implementation step by step and suggest a small test in main() that:
+
+* adds a rectangle
+* adds a circle
+* deletes one shape
+* renders the scene
+
+before introducing any interactive menu system."
+
+### Response Summary
+Antigravity designed a single, flat `Shape` struct containing coordinates suitable for all supported shape types, alongside a global fixed-size `scene` array. It implemented `addShape()`, `deleteShape()` (soft deletion using an active flag), `modifyShape()`, and `renderScene()` (which clears the canvas and redraws active objects). It provided a static test case for `main()` to verify correct canvas clear-and-redraw behavior.
+
+### Action Taken
+Implemented `Shape` struct, global variables, and shape operations in [main.c](file:///c:/Users/mailm/OneDrive/Documents/Projects/graphics-editor-c/main.c). Tested with a temporary `main()` function adding a rectangle and a circle, deleting the rectangle, and verifying that only the circle was drawn on the canvas.
+
+---
+
+## 2026-06-09
+
+### Goal
+Design and implement the final interactive console menu interface supporting adding, listing, deleting, and modifying shapes.
+
+### Prompt
+"I have now implemented and tested:
+
+* Shape struct
+* scene[MAX_SHAPES]
+* addShape()
+* deleteShape()
+* modifyShape()
+* renderScene()
+
+The scene management layer is working correctly.
+
+I now want to implement the final interactive menu interface.
+
+Requirements:
+
+1. Keep the existing drawing functions unchanged.
+2. Keep the existing Shape struct and scene array unchanged.
+3. Use a simple scanf()-based console menu.
+4. Support:
+
+   * Add Line
+   * Add Rectangle
+   * Add Triangle
+   * Add Circle
+   * List Shapes
+   * Delete Shape by ID
+   * Modify Shape by ID
+   * Render and Display Canvas
+   * Exit
+5. Keep the implementation simple and suitable for a one-day assignment.
+6. Explain the menu flow before generating code.
+7. Suggest testing scenarios for:
+
+   * Add
+   * Delete
+   * Modify
+   * Multiple overlapping shapes
+
+Before generating code, please recommend the best approach for modifyShape():
+
+Option A:
+* One generic coordinate entry format for every shape type.
+
+Option B:
+* Shape-specific prompts:
+  * Line: x1 y1 x2 y2
+  * Rectangle: x y width height
+  * Circle: centerX centerY radius
+  * Triangle: x1 y1 x2 y2 x3 y3
+
+Explain which approach is clearer for demonstration and grading.
+
+After implementation, provide a prompts.md entry in the existing Goal / Prompt / Response Summary / Action Taken format."
+
+### Response Summary
+Antigravity recommended **Option B** (shape-specific prompts) for `modifyShape()` to ensure clarity for graders and prevent input errors. It explained the menu flow using a `scanf`-based loop and suggested testing scenarios for adding, modifying, and deleting overlapping shapes.
+
+### Action Taken
+Implemented `listShapes()` and a robust `scanf`-based interactive terminal menu in [main.c](file:///c:/Users/mailm/OneDrive/Documents/Projects/graphics-editor-c/main.c). The menu prompts users for specific fields depending on the shape type, lists active shapes with details, and updates the canvas reactively. Verified compilation and clean functionality.
+
+---
+
+## 2026-06-09
+
+### Goal
+Perform final integration testing of all shapes (lines, rectangles, triangles, circles) and operations (adding, listing, modifying, and deleting shapes) on a single canvas.
+
+### Prompt
+"I have completed and tested the interactive menu system, shape listing, and the scene management layer. I also completed end-to-end testing of:
+- Adding rectangles, circles, triangles, and lines
+- Rendering multiple overlapping shapes
+- Modifying rectangles and triangles
+- Deleting shapes by ID
+- Re-rendering after deletion
+- Listing active shapes after additions and deletions
+Please review my prompts.md and main.c for consistency, verify checklists, and suggest documentation improvements."
+
+### Response Summary
+Antigravity verified that the implementation in `main.c` and the documentation in `prompts.md` were fully aligned. It recommended appending a final integration testing entry to summarize the comprehensive manual testing performed.
+
+### Action Taken
+Performed end-to-end manual validation testing of all functions. Verified that lines, rectangles, triangles, and circles could be created, listed, modified (using shape-specific prompts), and deleted by ID, with the canvas successfully performing clean redraws dynamically. No bugs or memory leaks were detected.
+
 # Project Progress
 
 * [x] Canvas initialization
@@ -365,9 +516,9 @@ Verified that both tests passed successfully and `plotCirclePoints()` successful
 * [x] Line
 * [x] Triangle
 * [x] Circle
-* [ ] Add object
-* [ ] Delete object
-* [ ] Modify object
+* [x] Add object
+* [x] Delete object
+* [x] Modify object
 
 # Maintenance Instructions
 
